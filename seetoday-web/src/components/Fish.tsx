@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import leftDartFish from 'assets/dart-fish-left.png';
-import rightDartFish from 'assets/dart-fish-right.png';
+import leftDefaultFish from 'assets/default-fish-left.png';
+import rightDefaultFish from 'assets/default-fish-right.png';
 import Move from 'components/background/Move';
 import { Location } from 'types/location.d';
 import generateRandomNumber from 'utils/generateRandomNumber';
@@ -10,11 +10,17 @@ interface FishProps {
 }
 
 const LeftFish: React.FC = () => (
-  <img style={{ width: '60px', objectFit: 'contain' }} src={leftDartFish} />
+  <img
+    style={{ width: '60px', height: '51px', objectFit: 'cover' }}
+    src={leftDefaultFish}
+  />
 );
 
 const RightFish: React.FC = () => (
-  <img style={{ width: '60px', objectFit: 'contain' }} src={rightDartFish} />
+  <img
+    style={{ width: '60px', height: '51px', objectFit: 'cover' }}
+    src={rightDefaultFish}
+  />
 );
 
 const Fish: React.FC<FishProps> = (props) => {

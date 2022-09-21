@@ -6,10 +6,11 @@ const PageWrapper: React.FC = ({ children }) => (
     <img
       src={background}
       style={{
+        objectFit: 'cover',
         width: '100%',
-        objectFit: 'contain',
+        height: '100%',
         position: 'absolute',
-        bottom: 40,
+        bottom: 0,
         left: 0,
         zIndex: -1,
       }}
