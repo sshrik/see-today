@@ -12,7 +12,7 @@ const MainPage: React.FC = () => {
 
   return (
     <PageWrapper>
-      {[...new Array(3)].map((_, index) => (
+      {[...new Array(20)].map((_, index) => (
         <WaterDrop key={`water-${index}`} />
       ))}
       {[...new Array(10)].map((_, index) => (
