@@ -1,25 +1,25 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import styled from 'styled-components';
+import CatchButtonImage from 'assets/controller/catch-button.png';
+import LeftButtonImage from 'assets/controller/left-button.png';
+import RightButtonImage from 'assets/controller/right-button.png';
 import HookState from 'models/HookState';
 
-const Button = styled.button`
-  width: 50px;
-  height: 60px;
-  background-color: yellow;
+const Image = styled.img`
+  object-fit: contain;
 `;
 
 const ButtonContainer = styled.div`
   width: 100%;
-  height: 100px;
   background-color: white;
+  z-index: 600;
 
   display: flex;
   flex-direction: row;
+  gap: 20px;
   justify-content: center;
   align-items: center;
-  gap: 20px;
-  margin: 20px;
 `;
 
 const HookController: React.FC = observer(() => {
@@ -27,9 +27,18 @@ const HookController: React.FC = observer(() => {
 
   return (
     <ButtonContainer>
-      <Button onClick={() => turnLeft()}>left</Button>
-      <Button onClick={() => toggleMove()}>go</Button>
-      <Button onClick={() => turnRight()}>right</Button>
+      <button onClick={() => turnLeft()}>
+        <Image
+          style={{ height: '60px', marginTop: '2px' }}
+          src={LeftButtonImage}
+        />
+      </button>
+      <button onClick={() => toggleMove()}>
+        <Image style={{ height: '130px' }} src={CatchButtonImage} />
+      </button>
+      <button onClick={() => turnRight()}>
+        <Image style={{ height: '60px' }} src={RightButtonImage} />
+      </button>
     </ButtonContainer>
   );
 });

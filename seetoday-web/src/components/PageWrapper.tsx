@@ -3,7 +3,7 @@ import background from 'assets/background.png';
 
 const PageWrapper: React.FC = ({ children }) => (
   <div
-    className="flex flex-col p-3 rounded-lg text-lime-300 text-xl font-semibold"
+    className="flex flex-col"
     style={{
       width: '100vw',
       height: '100vh',
