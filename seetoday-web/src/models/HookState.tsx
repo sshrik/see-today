@@ -1,7 +1,7 @@
 import { makeAutoObservable } from 'mobx';
 
 class HookState {
-  degree = 0;
+  horizontalPosition = 0;
 
   move = false;
 
@@ -11,16 +11,15 @@ class HookState {
     makeAutoObservable(this);
   }
 
-  turnLeft = () => {
-    this.degree += 2;
+  moveLeft = () => {
+    this.horizontalPosition -= 2;
   };
 
-  turnRight = () => {
-    this.degree -= 2;
+  moveRight = () => {
+    this.horizontalPosition += 2;
   };
 
   toggleMove = () => {
-    console.log(this);
     this.move = !this.move;
   };
 

@@ -9,6 +9,7 @@ const PageWrapper: React.FC = ({ children }) => (
       height: '100vh',
       justifyContent: 'flex-end',
       alignItems: 'center',
+      overflow: 'hidden',
     }}
   >
     <img

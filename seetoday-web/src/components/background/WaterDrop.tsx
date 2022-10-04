@@ -8,7 +8,7 @@ import { Location } from 'types/location.d';
 import generateRandomNumber from 'utils/generateRandomNumber';
 
 const WaterDropImage = styled.img`
-  object-fit: 'contain';
+  object-fit: contain;
   width: 50px;
 `;
 

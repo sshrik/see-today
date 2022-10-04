@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { observer } from 'mobx-react';
 import styled from 'styled-components';
+import { useInterval } from 'usehooks-ts';
 import CatchButtonImage from 'assets/controller/catch-button.png';
 import LeftButtonImage from 'assets/controller/left-button.png';
 import RightButtonImage from 'assets/controller/right-button.png';
@@ -23,20 +24,47 @@ const ButtonContainer = styled.div`
 `;
 
 const HookController: React.FC = observer(() => {
-  const { toggleMove, turnLeft, turnRight } = HookState;
+  const { toggleMove, moveLeft, moveRight } = HookState;
+
+  const [isLeftDown, setIsLeftDown] = useState(false);
+
+  const [isRightDown, setIsRightDown] = useState(false);
+
+  const handleLeftDown = () => setIsLeftDown(true);
+
+  const handleRightDown = () => setIsRightDown(true);
+
+  const handleLeftUp = () => setIsLeftDown(false);
+
+  const handleRightUp = () => setIsRightDown(false);
+
+  useInterval(() => {
+    if (isLeftDown) moveLeft();
+    if (isRightDown) moveRight();
+  }, 50);
 
   return (
     <ButtonContainer>
-      <button onClick={() => turnLeft()}>
+      <button
+        onMouseDown={handleLeftDown}
+        onMouseUp={handleLeftUp}
+        onTouchStart={handleLeftDown}
+        onTouchEnd={handleLeftUp}
+      >
         <Image
           style={{ height: '60px', marginTop: '2px' }}
           src={LeftButtonImage}
         />
       </button>
-      <button onClick={() => toggleMove()}>
+      <button onClick={toggleMove}>
         <Image style={{ height: '130px' }} src={CatchButtonImage} />
       </button>
-      <button onClick={() => turnRight()}>
+      <button
+        onMouseDown={handleRightDown}
+        onMouseUp={handleRightUp}
+        onTouchStart={handleRightDown}
+        onTouchEnd={handleRightUp}
+      >
         <Image style={{ height: '60px' }} src={RightButtonImage} />
       </button>
     </ButtonContainer>

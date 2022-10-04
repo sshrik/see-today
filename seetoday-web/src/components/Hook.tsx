@@ -1,13 +1,29 @@
 import React, { useState } from 'react';
 import { observer } from 'mobx-react';
+import styled from 'styled-components';
 import { useInterval } from 'usehooks-ts';
 import HookImgSrc from 'assets/hook.png';
+import RopeImgSrc from 'assets/rope.png';
 import HookState from 'models/HookState';
 
-const Hook: React.FC = observer(() => {
-  const { degree, move, moveDirection } = HookState;
+const HookWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  overflow: hidden;
+  width: 100%;
 
-  const [top, setTop] = useState(-360);
+  &,
+  & > * {
+    transition: all 0.1s;
+  }
+`;
+
+const Hook: React.FC = observer(() => {
+  const { horizontalPosition, move, moveDirection } = HookState;
+
+  const [top, setTop] = useState(-1200);
 
   useInterval(() => {
     if (move) {
@@ -17,18 +33,34 @@ const Hook: React.FC = observer(() => {
   }, 50);
 
   return (
-    <img
+    <HookWrapper
       style={{
-        transform: `rotate(${degree}deg)`,
-        transformOrigin: 'center top',
-        objectFit: 'contain',
-        width: '80px',
-        position: 'absolute',
-        left: 'calc(50% - 60px)',
+        left: `${horizontalPosition}px`,
         top: `${top}px`,
       }}
-      src={HookImgSrc}
-    />
+    >
+      <img
+        style={{
+          width: '280px',
+        }}
+        src={RopeImgSrc}
+      />
+      <img
+        style={{
+          width: '280px',
+        }}
+        src={RopeImgSrc}
+      />
+      <img
+        style={{
+          width: '100px',
+          marginTop: '-4px',
+          marginRight: '8.2px',
+          objectFit: 'cover',
+        }}
+        src={HookImgSrc}
+      />
+    </HookWrapper>
   );
 });
 
