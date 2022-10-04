@@ -5,10 +5,6 @@ import Move from 'components/background/Move';
 import { Location } from 'types/location.d';
 import generateRandomNumber from 'utils/generateRandomNumber';
 
-interface FishProps {
-  onClick?: React.MouseEventHandler;
-}
-
 const LeftFish: React.FC = () => (
   <img
     style={{ width: '60px', height: '51px', objectFit: 'cover' }}
@@ -23,9 +19,7 @@ const RightFish: React.FC = () => (
   />
 );
 
-const Fish: React.FC<FishProps> = (props) => {
-  const { onClick } = props;
-
+const Fish: React.FC = () => {
   const { innerWidth: maxWidth, innerHeight: maxHeight } = window;
 
   const [from, setFrom] = useState<Location>({
@@ -70,7 +64,6 @@ const Fish: React.FC<FishProps> = (props) => {
       onEnd={initLocation}
       onStart={handleStart}
       move={move}
-      onClick={onClick}
     >
       {from.x > to.x ? <LeftFish /> : <RightFish />}
     </Move>

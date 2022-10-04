@@ -21,6 +21,9 @@ const ButtonContainer = styled.div`
   gap: 20px;
   justify-content: center;
   align-items: center;
+
+  position: absolute;
+  bottom: 0px;
 `;
 
 const HookController: React.FC = observer(() => {

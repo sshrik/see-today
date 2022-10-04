@@ -1,31 +1,29 @@
-import React from 'react';
-import background from 'assets/background.png';
+import React, { useRef } from 'react';
+import styled from 'styled-components';
+import useAllImagesLoaded from 'hooks/useAllImagesLoaded';
+import LoadingPage from 'pages/LoadingPage';
 
-const PageWrapper: React.FC = ({ children }) => (
-  <div
-    className="flex flex-col"
-    style={{
-      width: '100vw',
-      height: '100vh',
-      justifyContent: 'flex-end',
-      alignItems: 'center',
-      overflow: 'hidden',
-    }}
-  >
-    <img
-      src={background}
-      style={{
-        objectFit: 'cover',
-        width: '100%',
-        height: '100%',
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        zIndex: -1,
-      }}
-    />
-    {children}
-  </div>
-);
+const Wrapper = styled.div`
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  overflow: hidden;
+`;
+
+const PageWrapper: React.FC = ({ children }) => {
+  const wrapperRef = useRef<HTMLDivElement>(null);
+
+  const documentState = useAllImagesLoaded(wrapperRef);
+
+  return (
+    <Wrapper ref={wrapperRef}>
+      {!documentState ? <LoadingPage /> : null}
+      {children}
+    </Wrapper>
+  );
+};
 
 export default PageWrapper;
