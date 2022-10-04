@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import WaterDrop from 'components/background/WaterDrop';
 import Fish from 'components/Fish';
+import Hook from 'components/Hook';
+import HookController from 'components/HookController';
 import PageWrapper from 'components/PageWrapper';
 
 const MainPage: React.FC = () => {
@@ -18,6 +20,8 @@ const MainPage: React.FC = () => {
       {[...new Array(10)].map((_, index) => (
         <Fish onClick={scoreUp} key={`water-${index}`} />
       ))}
+      <Hook />
+      <HookController />
     </PageWrapper>
   );
 };
