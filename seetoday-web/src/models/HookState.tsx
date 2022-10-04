@@ -12,14 +12,18 @@ class HookState {
   }
 
   moveLeft = () => {
-    this.horizontalPosition -= 2;
+    this.horizontalPosition -= 5;
   };
 
   moveRight = () => {
-    this.horizontalPosition += 2;
+    this.horizontalPosition += 5;
   };
 
   toggleMove = () => {
+    if (this.move) {
+      if (this.moveDirection === 'FORWARD') this.moveDirection = 'BACKWARD';
+      else this.moveDirection = 'FORWARD';
+    }
     this.move = !this.move;
   };
 
