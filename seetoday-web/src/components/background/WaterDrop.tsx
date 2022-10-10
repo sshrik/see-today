@@ -8,7 +8,7 @@ import { Location } from 'types/location.d';
 import generateRandomNumber from 'utils/generateRandomNumber';
 
 const WaterDropImage = styled.img`
-  object-fit: contain;
+  object-fit: cover;
   width: 50px;
 `;
 
@@ -29,7 +29,7 @@ const WaterDrop: React.FC = () => {
   const [move, setMove] = useState(false);
 
   const [imageSrc, setImageSrc] = useState(
-    waterDropImages[generateRandomNumber(7)]
+    waterDropImages[generateRandomNumber(2)]
   );
 
   const [duration, setDuration] = useState(generateRandomNumber(10, 3, false));
@@ -42,7 +42,7 @@ const WaterDrop: React.FC = () => {
 
     setDuration(generateRandomNumber(10, 3, false));
 
-    setImageSrc(waterDropImages[generateRandomNumber(7)]);
+    setImageSrc(waterDropImages[generateRandomNumber(2)]);
 
     setMove(false);
   };
