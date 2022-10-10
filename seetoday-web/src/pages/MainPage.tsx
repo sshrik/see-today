@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import background from 'assets/background.png';
+import JellyFish from 'components/background/JellyFish';
 import WaterDrop from 'components/background/WaterDrop';
 import Fish from 'components/Fish';
 import Hook from 'components/Hook';
@@ -23,8 +24,11 @@ const MainPage: React.FC = () => {
       {[...new Array(10)].map((_, index) => (
         <WaterDrop key={`water-${index}`} />
       ))}
+      {[...new Array(10)].map((_, index) => (
+        <JellyFish key={`jelly-${index}`} />
+      ))}
       {[...new Array(5)].map((_, index) => (
-        <Fish key={`water-${index}`} />
+        <Fish key={`fish-${index}`} />
       ))}
       <Hook />
       <HookController />
