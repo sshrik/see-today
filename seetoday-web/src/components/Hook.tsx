@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { observer } from 'mobx-react';
 import styled from 'styled-components';
 import { useInterval } from 'usehooks-ts';
+import leftDefaultFish from 'assets/default-fish-left.png';
 import HookImgSrc from 'assets/hook.png';
 import RopeImgSrc from 'assets/rope.png';
 import HookState from 'models/HookState';
@@ -11,17 +12,36 @@ const HookWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   position: absolute;
-  overflow: hidden;
   width: 100%;
 
   &,
   & > * {
     transition: all 0.1s;
   }
+
+  @keyframes catch {
+    0% {
+      transform: rotate(70deg);
+    }
+
+    100% {
+      transform: rotate(110deg);
+    }
+  }
+`;
+
+const Fish = styled.img`
+  width: 60px;
+  height: 51px;
+  margin-top: -55px;
+  margin-left: 50px;
+  object-fit: cover;
+  transform-origin: left center;
+  animation: catch 1.5s linear 0s infinite alternate;
 `;
 
 const Hook: React.FC = observer(() => {
-  const { horizontalPosition, move, moveDirection } = HookState;
+  const { horizontalPosition, move, moveDirection, isCatched } = HookState;
 
   const [top, setTop] = useState(-1200);
 
@@ -60,6 +80,7 @@ const Hook: React.FC = observer(() => {
         }}
         src={HookImgSrc}
       />
+      {isCatched && <Fish src={leftDefaultFish} />}
     </HookWrapper>
   );
 });
