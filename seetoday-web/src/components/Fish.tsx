@@ -22,46 +22,36 @@ const RightFish: React.FC = () => (
 const Fish: React.FC = () => {
   const { innerWidth: maxWidth, innerHeight: maxHeight } = window;
 
-  const [from, setFrom] = useState<Location>({
+  const initLocation = (): Location => ({
     x: generateRandomNumber(maxWidth),
     y: generateRandomNumber(maxHeight),
   });
 
-  const [to, setTo] = useState<Location>({
-    x: generateRandomNumber(maxWidth),
-    y: generateRandomNumber(maxHeight),
-  });
+  const initDuration = () => generateRandomNumber(8, 3, false);
+
+  const [from, setFrom] = useState<Location>(initLocation());
+
+  const [to, setTo] = useState<Location>(initLocation());
 
   const [move, setMove] = useState(false);
 
-  const [duration, setDuration] = useState(generateRandomNumber(5, 1, false));
+  const [duration, setDuration] = useState(initDuration());
 
-  const initLocation = () => {
-    setFrom({
-      x: generateRandomNumber(maxWidth),
-      y: generateRandomNumber(maxHeight),
-    });
-
-    setTo({
-      x: generateRandomNumber(maxWidth),
-      y: generateRandomNumber(maxHeight),
-    });
-
-    setDuration(generateRandomNumber(5, 1, false));
-
+  const initLocationState = () => {
+    setFrom(initLocation());
+    setTo(initLocation());
+    setDuration(initDuration());
     setMove(false);
   };
 
-  const handleStart = () => {
-    setMove(true);
-  };
+  const handleStart = () => setMove(true);
 
   return (
     <Move
       from={from}
       to={to}
       duration={duration}
-      onEnd={initLocation}
+      onEnd={initLocationState}
       onStart={handleStart}
       move={move}
     >
