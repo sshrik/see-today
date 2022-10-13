@@ -9,6 +9,8 @@ class HookState {
 
   isCatched = false;
 
+  modalOpen = false;
+
   catchTimeoutInterval = -1;
 
   constructor() {
@@ -51,12 +53,21 @@ class HookState {
     this.moveDirection = 'BACKWARD';
   };
 
+  openModal = () => {
+    this.modalOpen = true;
+  };
+
   catchFish = () => {
     this.isCatched = true;
   };
 
   releaseFish = () => {
+    this.modalOpen = false;
     this.isCatched = false;
+    this.catchTimeoutInterval = -1;
+    this.moveForward();
+    this.move = false;
+    this.horizontalPosition = 0;
   };
 }
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
 import styled from 'styled-components';
 import { useInterval } from 'usehooks-ts';
@@ -41,7 +41,8 @@ const Fish = styled.img`
 `;
 
 const Hook: React.FC = observer(() => {
-  const { horizontalPosition, move, moveDirection, isCatched } = HookState;
+  const { horizontalPosition, move, moveDirection, isCatched, openModal } =
+    HookState;
 
   const [top, setTop] = useState(-1200);
 
@@ -51,6 +52,13 @@ const Hook: React.FC = observer(() => {
       else setTop(top - 10);
     }
   }, 50);
+
+  useEffect(() => {
+    if (top < -1180 && isCatched) {
+      openModal();
+      setTop(-1200);
+    }
+  }, [top]);
 
   return (
     <HookWrapper
