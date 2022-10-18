@@ -31,7 +31,7 @@ const MainPage: React.FC = observer(() => {
     <PageWrapper>
       <FishModal open={modalOpen} onClose={handleModalClose} />
       <BackgroundImage src={background} />
-      {[...new Array(10)].map((_, index) => (
+      {[...new Array(6)].map((_, index) => (
         <WaterDrop key={`water-${index}`} />
       ))}
       {[...new Array(10)].map((_, index) => (
