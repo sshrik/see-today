@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Location } from 'types/location.d';
 
@@ -20,23 +20,22 @@ const MoveWrapper = styled.div`
 const Move: React.FC<MoveProps> = (props) => {
   const { children, from, to, duration, move, onEnd, onStart, onClick } = props;
 
-  const childRef = useRef<HTMLDivElement>(null);
-
   const handleStart = () => onStart();
 
   const handleEnd = () => onEnd();
 
-  useEffect(() => handleStart(), [move]);
+  useEffect(() => {
+    setTimeout(() => handleStart(), 50);
+  }, [move]);
 
   return (
     <MoveWrapper
-      ref={childRef}
       onTransitionEnd={handleEnd}
       onClick={onClick}
       style={
         move
           ? {
-              transition: `linear ${duration}s`,
+              transition: `all ${duration}s linear 0s`,
               left: `${to.x}px`,
               bottom: `${to.y}px`,
             }

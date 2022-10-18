@@ -37,7 +37,7 @@ const MainPage: React.FC = observer(() => {
       {[...new Array(10)].map((_, index) => (
         <JellyFish key={`jelly-${index}`} />
       ))}
-      {[...new Array(5)].map((_, index) => (
+      {[...new Array(6)].map((_, index) => (
         <Fish key={`fish-${index}`} />
       ))}
       <Hook />
