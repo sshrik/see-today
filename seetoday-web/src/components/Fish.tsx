@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import leftDefaultFish from 'assets/default-fish-left.png';
 import rightDefaultFish from 'assets/default-fish-right.png';
 import Move from 'components/background/Move';
@@ -20,11 +20,14 @@ const RightFish: React.FC = () => (
 );
 
 const Fish: React.FC = () => {
-  const { innerWidth: maxWidth, innerHeight: maxHeight } = window;
+  const { maxWidth, maxHeight } = useMemo(
+    () => ({ maxWidth: window.innerWidth, maxHeight: window.innerHeight }),
+    []
+  );
 
   const initLocation = (): Location => ({
-    x: generateRandomNumber(maxWidth),
-    y: generateRandomNumber(maxHeight),
+    x: generateRandomNumber(maxWidth - 60),
+    y: generateRandomNumber(maxHeight - 60, 130),
   });
 
   const initDuration = () => generateRandomNumber(8, 3, false);

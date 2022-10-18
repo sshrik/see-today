@@ -9,7 +9,7 @@ import generateRandomNumber from 'utils/generateRandomNumber';
 
 const WaterDropImage = styled.img`
   object-fit: cover;
-  width: 50px;
+  width: 30px;
 `;
 
 const waterDropImages = [
