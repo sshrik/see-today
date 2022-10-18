@@ -31,6 +31,6 @@ jobs:
         env:
           # secrets 를 통해 github 비밀키에 접근 가능하다.
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
         run: |
           aws s3 sync ./dist s3://see-today
