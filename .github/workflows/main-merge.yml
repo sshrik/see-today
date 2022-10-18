@@ -1,0 +1,32 @@
+# Workflow의 이름. Unique한 구분 가능한 값을 사용해야 편리하다.
+name: 'main-merge'
+
+# workflow를 동작시키는 Trigger, main, 기능 개발, 버그 수정 push가 있을 때 workflow를 동작시킨다.
+on:
+  push:
+    branches:
+    - main
+    - feature/*
+    - bugfix/*
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3
+        with:
+          ref: main
+          
+      - name: Install Dependencies
+        run: yarn
+
+      - name: Build # project build
+        run: yarn build
+
+      - name: Deploy 
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: |
+          aws s3 sync ./dist s3://see-today
