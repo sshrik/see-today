@@ -17,18 +17,18 @@ jobs:
         uses: actions/checkout@v3
         with:
           ref: main
-      
-      - name: Change web directory
-        run: cd seetoday-web
-          
+
       - name: Install Dependencies
+        working-directory: ./seetoday-web
         run: yarn
 
-      - name: Build # project build
+      - name: Build
+        working-directory: ./seetoday-web
         run: yarn build
 
       - name: Deploy 
         env:
+          # secrets 를 통해 github 비밀키에 접근 가능하다.
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: |
