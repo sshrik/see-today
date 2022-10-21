@@ -10,14 +10,18 @@ on:
     - bugfix/*
 
 jobs:
-  build:
+  checkout:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source code
         uses: actions/checkout@v3
         with:
           ref: main
-
+          
+  build:
+    runs-on: ubuntu-latest
+    needs: checkout
+    steps:
       - name: Install Dependencies
         working-directory: ./seetoday-web
         run: yarn
@@ -25,7 +29,11 @@ jobs:
       - name: Build
         working-directory: ./seetoday-web
         run: yarn build
-
+        
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [checkout, build]
+    steps:
       - name: Deploy 
         working-directory: ./seetoday-web
         env:
