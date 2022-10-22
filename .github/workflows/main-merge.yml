@@ -1,13 +1,9 @@
-# Workflow의 이름. Unique한 구분 가능한 값을 사용해야 편리하다.
 name: 'main-merge'
 
-# workflow를 동작시키는 Trigger, main, 기능 개발, 버그 수정 push가 있을 때 workflow를 동작시킨다.
 on:
   push:
     branches:
     - main
-    - feature/*
-    - bugfix/*
 
 jobs:
   checkout:
@@ -22,11 +18,13 @@ jobs:
     runs-on: ubuntu-latest
     needs: checkout
     steps:
+      - name: ls1
+        run: ls -lrt
       - name: Init
         uses: actions/checkout@v3
         with:
           ref: main
-      - name: ls
+      - name: ls2
         run: ls -lrt
 
       - name: Install Dependencies
