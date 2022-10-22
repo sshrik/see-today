@@ -6,7 +6,7 @@ on:
     - main
 
 jobs:
-  checkout:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source code
@@ -14,19 +14,6 @@ jobs:
         with:
           ref: main
           
-  build:
-    runs-on: ubuntu-latest
-    needs: checkout
-    steps:
-      - name: ls1
-        run: ls -lrt
-      - name: Init
-        uses: actions/checkout@v3
-        with:
-          ref: main
-      - name: ls2
-        run: ls -lrt
-
       - name: Install Dependencies
         working-directory: ./seetoday-web
         run: yarn
@@ -35,18 +22,22 @@ jobs:
         working-directory: ./seetoday-web
         run: yarn build
       
-      - name: Cache
-        uses: actions/cache@v3.0.11
-        with: 
-          path: dist
-          key: build-files
+      - name: 'Upload Artifact'
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-dist
+          path: ./dist
         
   deploy:
     runs-on: ubuntu-latest
-    needs: [checkout, build]
+    needs: build
     steps:
+      - name: Download a single artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: build-dist
+          
       - name: Deploy 
-        working-directory: ./seetoday-web
         env:
           # secrets 를 통해 github 비밀키에 접근 가능하다.
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
