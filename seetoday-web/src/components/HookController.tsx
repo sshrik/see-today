@@ -24,10 +24,35 @@ const ButtonContainer = styled.div`
 
   position: absolute;
   bottom: 0px;
+
+  @keyframes catch-motion {
+    from {
+      padding-left: 0px;
+      padding-top: 0px;
+      height: 130px;
+    }
+    to {
+      padding-left: 10px;
+      padding-top: 10px;
+      height: 120px;
+    }
+  }
+`;
+
+interface CatchImageProps {
+  isCatched: boolean;
+}
+
+const CatchImage = styled.img<CatchImageProps>`
+  animation: ${({ isCatched }) => {
+    if (isCatched) return 'catch-motion 0.4s linear 0s infinite alternate';
+    return 'none';
+  }};
+  object-fit: contain;
 `;
 
 const HookController: React.FC = observer(() => {
-  const { toggleMove, moveLeft, moveRight } = HookState;
+  const { toggleMove, moveLeft, moveRight, isCatched } = HookState;
 
   const [isLeftDown, setIsLeftDown] = useState(false);
 
@@ -60,7 +85,9 @@ const HookController: React.FC = observer(() => {
         />
       </button>
       <button onClick={toggleMove}>
-        <Image style={{ height: '130px' }} src={CatchButtonImage} />
+        <div style={{ width: '132.45px', height: '130px' }}>
+          <CatchImage isCatched={isCatched} src={CatchButtonImage} />
+        </div>
       </button>
       <button
         onMouseDown={handleRightDown}

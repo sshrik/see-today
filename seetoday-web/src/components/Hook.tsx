@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { observer } from 'mobx-react';
 import styled from 'styled-components';
 import { useInterval } from 'usehooks-ts';
@@ -41,24 +41,38 @@ const Fish = styled.img`
 `;
 
 const Hook: React.FC = observer(() => {
-  const { horizontalPosition, move, moveDirection, isCatched, openModal } =
-    HookState;
+  const maxHeight = useMemo(() => window.innerHeight, []);
 
-  const [top, setTop] = useState(-1200);
+  const {
+    horizontalPosition,
+    move,
+    moveDirection,
+    isCatched,
+    setMaxTimeoutInterval,
+    setMinTimeoutInterval,
+    openModal,
+  } = HookState;
+
+  const [top, setTop] = useState(-600);
 
   useInterval(() => {
     if (move) {
       if (moveDirection === 'FORWARD') setTop(top + 10);
-      else if (top > -1210) setTop(top - 10);
+      else if (top > -610) setTop(top - 10);
     }
   }, 50);
 
   useEffect(() => {
-    if (top < -1200 && isCatched) {
+    if (top < -600 && isCatched) {
       openModal();
-      setTop(-1200);
+      setTop(-600);
     }
   }, [top, isCatched]);
+
+  useEffect(() => {
+    setMinTimeoutInterval(((maxHeight - 130) / 200) * 0.2);
+    setMaxTimeoutInterval(((maxHeight - 130) / 200) * 0.8);
+  }, []);
 
   return (
     <HookWrapper
@@ -67,12 +81,6 @@ const Hook: React.FC = observer(() => {
         top: `${top}px`,
       }}
     >
-      <img
-        style={{
-          width: '280px',
-        }}
-        src={RopeImgSrc}
-      />
       <img
         style={{
           width: '280px',

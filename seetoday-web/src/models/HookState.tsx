@@ -13,21 +13,42 @@ class HookState {
 
   catchTimeoutInterval = -1;
 
+  maxTimeoutInterval = -1;
+
+  minTimeoutInterval = -1;
+
+  maxWidth = 0;
+
   constructor() {
     makeAutoObservable(this);
+    this.maxWidth = window.innerWidth / 2 - 25;
   }
 
   moveLeft = () => {
-    this.horizontalPosition -= 5;
+    if (this.horizontalPosition > -1 * this.maxWidth) {
+      this.horizontalPosition -= 5;
+    }
   };
 
   moveRight = () => {
-    this.horizontalPosition += 5;
+    if (this.horizontalPosition < this.maxWidth) {
+      this.horizontalPosition += 5;
+    }
+  };
+
+  setMinTimeoutInterval = (minTimeoutInterval: number) => {
+    this.minTimeoutInterval = minTimeoutInterval;
+  };
+
+  setMaxTimeoutInterval = (maxTimeoutInterval: number) => {
+    this.maxTimeoutInterval = maxTimeoutInterval;
   };
 
   toggleMove = () => {
     if (this.catchTimeoutInterval < 0) {
-      const timeoutInterval = Math.random() * 2 + 1;
+      const timeoutInterval =
+        Math.random() * (this.maxTimeoutInterval - this.minTimeoutInterval) +
+        this.minTimeoutInterval;
 
       this.catchTimeoutInterval = timeoutInterval;
 
