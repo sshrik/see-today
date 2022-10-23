@@ -46,6 +46,7 @@ const Hook: React.FC = observer(() => {
   const {
     horizontalPosition,
     move,
+    toggleMove,
     moveDirection,
     isCatched,
     setMaxTimeoutInterval,
@@ -53,19 +54,24 @@ const Hook: React.FC = observer(() => {
     openModal,
   } = HookState;
 
-  const [top, setTop] = useState(-600);
+  const [top, setTop] = useState(-900);
 
   useInterval(() => {
     if (move) {
-      if (moveDirection === 'FORWARD') setTop(top + 10);
-      else if (top > -610) setTop(top - 10);
+      if (moveDirection === 'FORWARD') {
+        if (top < maxHeight - 900 - 280) {
+          setTop(top + 10);
+        } else {
+          toggleMove();
+        }
+      } else if (top > -910) setTop(top - 10);
     }
   }, 50);
 
   useEffect(() => {
-    if (top < -600 && isCatched) {
+    if (top < -900 && isCatched) {
       openModal();
-      setTop(-600);
+      setTop(-900);
     }
   }, [top, isCatched]);
 
@@ -83,7 +89,8 @@ const Hook: React.FC = observer(() => {
     >
       <img
         style={{
-          width: '280px',
+          width: '220px',
+          height: '900px',
         }}
         src={RopeImgSrc}
       />
@@ -91,7 +98,7 @@ const Hook: React.FC = observer(() => {
         style={{
           width: '100px',
           marginTop: '-4px',
-          marginRight: '8.2px',
+          marginRight: '5.2px',
           objectFit: 'cover',
         }}
         src={HookImgSrc}
