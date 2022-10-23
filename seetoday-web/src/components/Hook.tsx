@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { observer } from 'mobx-react';
 import styled from 'styled-components';
 import { useInterval } from 'usehooks-ts';
@@ -41,24 +41,44 @@ const Fish = styled.img`
 `;
 
 const Hook: React.FC = observer(() => {
-  const { horizontalPosition, move, moveDirection, isCatched, openModal } =
-    HookState;
+  const maxHeight = useMemo(() => window.innerHeight, []);
 
-  const [top, setTop] = useState(-1200);
+  const {
+    horizontalPosition,
+    move,
+    toggleMove,
+    moveDirection,
+    isCatched,
+    setMaxTimeoutInterval,
+    setMinTimeoutInterval,
+    openModal,
+  } = HookState;
+
+  const [top, setTop] = useState(-900);
 
   useInterval(() => {
     if (move) {
-      if (moveDirection === 'FORWARD') setTop(top + 10);
-      else setTop(top - 10);
+      if (moveDirection === 'FORWARD') {
+        if (top < maxHeight - 900 - 280) {
+          setTop(top + 10);
+        } else {
+          toggleMove();
+        }
+      } else if (top > -910) setTop(top - 10);
     }
   }, 50);
 
   useEffect(() => {
-    if (top < -1180 && isCatched) {
+    if (top < -900 && isCatched) {
       openModal();
-      setTop(-1200);
+      setTop(-900);
     }
-  }, [top]);
+  }, [top, isCatched]);
+
+  useEffect(() => {
+    setMinTimeoutInterval(((maxHeight - 130) / 200) * 0.2);
+    setMaxTimeoutInterval(((maxHeight - 130) / 200) * 0.8);
+  }, []);
 
   return (
     <HookWrapper
@@ -69,13 +89,8 @@ const Hook: React.FC = observer(() => {
     >
       <img
         style={{
-          width: '280px',
-        }}
-        src={RopeImgSrc}
-      />
-      <img
-        style={{
-          width: '280px',
+          width: '220px',
+          height: '900px',
         }}
         src={RopeImgSrc}
       />
@@ -83,7 +98,7 @@ const Hook: React.FC = observer(() => {
         style={{
           width: '100px',
           marginTop: '-4px',
-          marginRight: '8.2px',
+          marginRight: '5.2px',
           objectFit: 'cover',
         }}
         src={HookImgSrc}
