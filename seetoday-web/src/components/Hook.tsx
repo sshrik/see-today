@@ -49,16 +49,16 @@ const Hook: React.FC = observer(() => {
   useInterval(() => {
     if (move) {
       if (moveDirection === 'FORWARD') setTop(top + 10);
-      else setTop(top - 10);
+      else if (top > -1210) setTop(top - 10);
     }
   }, 50);
 
   useEffect(() => {
-    if (top < -1180 && isCatched) {
+    if (top < -1200 && isCatched) {
       openModal();
       setTop(-1200);
     }
-  }, [top]);
+  }, [top, isCatched]);
 
   return (
     <HookWrapper

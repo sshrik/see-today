@@ -33,7 +33,9 @@ class HookState {
 
       setTimeout(() => {
         this.catchFish();
-        this.toggleMove();
+        if (this.move) {
+          this.toggleMove();
+        }
       }, timeoutInterval * 1000);
     }
 
