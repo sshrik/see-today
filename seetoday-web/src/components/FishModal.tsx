@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import ModalBackgroundImageSrc from 'assets/modal-background.png';
 import ModalDartContents from 'assets/modal-dart-contents.png';
+import ModalLemonContents from 'assets/modal-lemon-contents.png';
 import ModalOkButton from 'assets/modal-ok-button.png';
+import ModalSongContents from 'assets/modal-song-contents.png';
+import generateRandomNumber from 'utils/generateRandomNumber';
+
+const FishContents = [ModalDartContents, ModalLemonContents, ModalSongContents];
 
 interface ModalProps {
   open: boolean;
@@ -65,9 +70,17 @@ const Button = styled.button`
 const FishModal: React.FC<ModalProps> = ({ open, onClose }) => {
   const handleModalButtonClick = () => onClose && onClose();
 
+  const [modalIndex, setModalIndex] = useState(
+    generateRandomNumber(FishContents.length - 1)
+  );
+
+  useEffect(() => {
+    setModalIndex(generateRandomNumber(FishContents.length - 1));
+  }, [open]);
+
   return (
     <ModalContainer open={open}>
-      <img style={{ width: '260px' }} src={ModalDartContents} />
+      <img style={{ width: '300px' }} src={FishContents[modalIndex]} />
       <Button onClick={handleModalButtonClick} />
     </ModalContainer>
   );
