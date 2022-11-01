@@ -74,6 +74,7 @@ const HookController: React.FC = observer(() => {
   return (
     <ButtonContainer>
       <button
+        onContextMenu={(e) => e.preventDefault()}
         onMouseDown={handleLeftDown}
         onMouseUp={handleLeftUp}
         onTouchStart={handleLeftDown}
@@ -90,6 +91,7 @@ const HookController: React.FC = observer(() => {
         </div>
       </button>
       <button
+        onContextMenu={(e) => e.preventDefault()}
         onMouseDown={handleRightDown}
         onMouseUp={handleRightUp}
         onTouchStart={handleRightDown}
