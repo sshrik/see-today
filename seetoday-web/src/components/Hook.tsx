@@ -12,13 +12,14 @@ const HookWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   position: absolute;
-  width: 100%;
 
   &,
   & > * {
     transition: all 0.1s;
   }
+`;
 
+const Fish = styled.img`
   @keyframes catch {
     0% {
       transform: rotate(70deg);
@@ -28,9 +29,7 @@ const HookWrapper = styled.div`
       transform: rotate(110deg);
     }
   }
-`;
 
-const Fish = styled.img`
   width: 60px;
   height: 51px;
   margin-top: -55px;
@@ -41,7 +40,13 @@ const Fish = styled.img`
 `;
 
 const Hook: React.FC = observer(() => {
-  const maxHeight = useMemo(() => window.innerHeight, []);
+  const { maxHeight, maxWidth } = useMemo(
+    () => ({
+      maxHeight: window.innerHeight,
+      maxWidth: window.innerWidth,
+    }),
+    []
+  );
 
   const {
     horizontalPosition,
@@ -83,7 +88,7 @@ const Hook: React.FC = observer(() => {
   return (
     <HookWrapper
       style={{
-        left: `${horizontalPosition}px`,
+        left: `${maxWidth / 2 + horizontalPosition - 110}px`,
         top: `${top}px`,
       }}
     >
