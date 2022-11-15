@@ -2,19 +2,9 @@ import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import ModalBackgroundImageSrc from 'assets/modal-background.png';
-import ModalDartContents from 'assets/modal-dart-contents.png';
-import ModalJellyContents from 'assets/modal-jelly-contents.png';
-import ModalLemonContents from 'assets/modal-lemon-contents.png';
 import ModalOkButton from 'assets/modal-ok-button.png';
-import ModalSongContents from 'assets/modal-song-contents.png';
 import generateRandomNumber from 'utils/generateRandomNumber';
-
-const FishContents = [
-  ModalDartContents,
-  ModalLemonContents,
-  ModalSongContents,
-  ModalJellyContents,
-];
+import TodayText from 'utils/TodayText';
 
 interface ModalProps {
   open: boolean;
@@ -51,6 +41,21 @@ const ModalBackground = styled.div`
   flex-direction: column;
 `;
 
+const ModalContentContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 135px;
+  margin-top: 30px;
+
+  & > p {
+    font-family: locus_sangsang;
+    font-size: 18px;
+    line-height: 26px;
+  }
+`;
+
 const ModalContainer: React.FC<ModalProps> = ({ children, open }) => {
   const el = document.getElementById('modal');
 
@@ -76,19 +81,21 @@ const Button = styled.button`
 const FishModal: React.FC<ModalProps> = ({ open, onClose }) => {
   const handleModalButtonClick = () => onClose && onClose();
 
-  const [modalIndex, setModalIndex] = useState(
-    generateRandomNumber(FishContents.length) - 1
-  );
+  const [modalIndex, setModalIndex] = useState(generateRandomNumber(1) - 1);
 
   useEffect(() => {
     if (open === true) {
-      setModalIndex(generateRandomNumber(FishContents.length) - 1);
+      setModalIndex(generateRandomNumber(1) - 1);
     }
   }, [open]);
 
   return (
     <ModalContainer open={open}>
-      <img style={{ width: '300px' }} src={FishContents[modalIndex]} />
+      <ModalContentContainer>
+        {TodayText[modalIndex].map((text) => (
+          <p key={text}>{text}</p>
+        ))}
+      </ModalContentContainer>
       <Button onClick={handleModalButtonClick} />
     </ModalContainer>
   );
