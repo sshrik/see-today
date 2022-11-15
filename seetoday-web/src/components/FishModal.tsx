@@ -81,11 +81,13 @@ const Button = styled.button`
 const FishModal: React.FC<ModalProps> = ({ open, onClose }) => {
   const handleModalButtonClick = () => onClose && onClose();
 
-  const [modalIndex, setModalIndex] = useState(generateRandomNumber(1) - 1);
+  const [modalIndex, setModalIndex] = useState(
+    generateRandomNumber(TodayText.length) - 1
+  );
 
   useEffect(() => {
     if (open === true) {
-      setModalIndex(generateRandomNumber(1) - 1);
+      setModalIndex(generateRandomNumber(TodayText.length) - 1);
     }
   }, [open]);
 
